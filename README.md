@@ -31,7 +31,7 @@ A RESTful API built with Laravel for managing tasks. This project implements the
 1. Clone the repository
 ```bash
 git clone https://github.com/Timiochukwu/uniswitch-task-management-api.git
-cd uniswitch-task-management
+cd uniswitch-task-management-api
 ```
 
 2. Copy the environment file

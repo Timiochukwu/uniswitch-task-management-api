@@ -1,5 +1,3 @@
-H 
-
 FROM php:8.2-fpm-alpine
 
 # Install necessary dependencies
