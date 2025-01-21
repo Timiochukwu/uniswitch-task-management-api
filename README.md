@@ -100,7 +100,7 @@ docker-compose exec app php artisan test
 - id (bigint, primary key)
 - title (string)
 - description (text, nullable)
-- completed (enum: true, false)
+- completed (boolean: true, false)
 - due_date (datetime, nullable)
 - created_at (timestamp)
 - updated_at (timestamp)
