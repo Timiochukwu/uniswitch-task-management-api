@@ -14,7 +14,7 @@ A RESTful API built with Laravel for managing tasks. This project implements the
 
 ## Tech Stack
 
-- PHP 8.1
+- PHP 8.2
 - Laravel 11.x
 - MySQL 8.0
 - Docker
@@ -31,7 +31,7 @@ A RESTful API built with Laravel for managing tasks. This project implements the
 1. Clone the repository
 ```bash
 git clone https://github.com/Timiochukwu/uniswitch-task-management-api.git
-cd task-management-api
+cd uniswitch-task-management
 ```
 
 2. Copy the environment file
@@ -77,15 +77,14 @@ docker-compose exec app php artisan migrate
 {
     "title": "Task Title",
     "description": "Task Description",
-    "status": "pending",
+    "completed": true,
     "due_date": "2024-02-20"
 }
 ```
 
-### Status Options
-- pending
-- in_progress
-- completed
+### Completion Status Options
+- true
+- false
 
 ## Testing
 
@@ -101,7 +100,7 @@ docker-compose exec app php artisan test
 - id (bigint, primary key)
 - title (string)
 - description (text, nullable)
-- status (enum: pending, in_progress, completed)
+- completed (enum: true, false)
 - due_date (datetime, nullable)
 - created_at (timestamp)
 - updated_at (timestamp)
@@ -112,8 +111,6 @@ The API returns appropriate HTTP status codes:
 
 - 200: Success
 - 201: Created
-- 204: No Content
-- 400: Bad Request
 - 404: Not Found
 - 422: Validation Error
 - 500: Server Error

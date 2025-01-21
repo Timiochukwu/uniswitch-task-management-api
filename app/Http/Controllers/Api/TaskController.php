@@ -20,18 +20,28 @@ class TaskController extends Controller
 
      public function index(): JsonResponse
     {
-        $tasks = $this->taskRepository->getAll();
-        return response()->json(['data' => $tasks], Response::HTTP_OK);
+        try {
+            $tasks = $this->taskRepository->getAll();
+            return response()->json(['message' => 'Success', 'data' => $tasks], Response::HTTP_OK);
+        } catch (Exception $e) {
+           return response()->json(['message' => 'Error fetching tasks', 'error' => $e->getMessage()], 
+           Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
 
     public function show(int $id): JsonResponse
     {
+        try {
         $task = $this->taskRepository->getById($id);
         if (!$task) {
             return response()->json(['message' => 'Task not found'], Response::HTTP_NOT_FOUND);
         }
-        return response()->json(['data' => $task], Response::HTTP_OK);
+        return response()->json(['message' => 'Success','data' => $task], Response::HTTP_OK);
+    } catch (Exception $e) {
+       return response()->json(['message' => 'Error fetching tasks', 'error' => $e->getMessage()], 
+       Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
     }
 
     public function store(Request $request): JsonResponse
@@ -44,9 +54,13 @@ class TaskController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
+        try {
         $task = $this->taskRepository->create($request->all());
-        return response()->json(['data' => $task], Response::HTTP_CREATED);
+        return response()->json(['message' => 'Task Created Succesfully', 'data' => $task], Response::HTTP_CREATED);
+    } catch (Exception $e) {
+       return response()->json(['message' => 'Error creating tasks', 'error' => $e->getMessage()], 
+       Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
     }
     
     public function update(Request $request, int $id): JsonResponse
@@ -61,6 +75,8 @@ class TaskController extends Controller
             return response()->json(['errors' => $validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        try {
+
          $updated = $this->taskRepository->update($id, $request->all());
 
         if(!$updated){
@@ -68,15 +84,26 @@ class TaskController extends Controller
         }
 
          return response()->json(['message' => 'Task updated successfully'], Response::HTTP_OK);
+
+    } catch (Exception $e) {
+        return response()->json(['message' => 'Error updating tasks', 'error' => $e->getMessage()], 
+        Response::HTTP_INTERNAL_SERVER_ERROR);
+     }
     }
     
     public function destroy(int $id): JsonResponse
     {
+        try {
          $deleted = $this->taskRepository->delete($id);
 
         if (!$deleted) {
            return response()->json(['message' => 'Task not found'], Response::HTTP_NOT_FOUND);
         }
         return response()->json(['message' => 'Task deleted successfully'], Response::HTTP_OK);
+
+    } catch (Exception $e) {
+        return response()->json(['message' => 'Error deleting tasks', 'error' => $e->getMessage()], 
+        Response::HTTP_INTERNAL_SERVER_ERROR);
+     }
     }
 }

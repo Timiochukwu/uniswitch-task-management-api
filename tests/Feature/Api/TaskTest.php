@@ -13,15 +13,22 @@ class TaskTest extends TestCase
 {
      use RefreshDatabase;
 
-    public function test_can_list_tasks()
-    {
-        Task::factory()->count(3)->create();
-        $this->getJson('/api/tasks')
-            ->assertStatus(200)
-            ->assertJson(fn(AssertableJson $json) =>
-            $json->has('data', 3)
-         );
-    }
+     public function test_can_list_tasks()
+     {
+         Task::factory()->count(3)->create();
+         $this->getJson('/api/tasks')
+             ->assertStatus(200)
+             ->assertJsonStructure([
+                 'message',
+                 'data' => [
+                     '*' => ['id', 'title', 'description', 'completed', 'created_at', 'updated_at']
+                 ]
+             ])
+             ->assertJson(fn(AssertableJson $json) =>
+                 $json->has('data', 3)
+                      ->where('message', 'Success')
+             );
+     }
 
 public function test_can_get_a_single_task()
 {
