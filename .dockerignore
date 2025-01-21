@@ -1,0 +1,17 @@
+# Dependencies
+/node_modules
+
+# Environment variables
+/src/.env.development
+/src/.env.production
+
+# Google API client secret
+/src/client_secret_159654985931-j82ibbqo9fbuh0lnd0kbh8icu4va9rbj.apps.googleusercontent.com.json
+
+# Git Folder
+.git/
+
+/src/public/uploads
+
+
+/src/trendLuxe.pem
