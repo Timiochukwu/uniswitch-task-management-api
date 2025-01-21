@@ -1,10 +1,13 @@
+H 
+
+version: '3.3'
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:9000"
+      - "8000:8000"
     volumes:
       - ./:/var/www/html
     depends_on:
