@@ -152,7 +152,6 @@ To use:
 
 The project includes three main services:
 - **app**: PHP application
-- **nginx**: Web server
 - **mysql**: Database
 
 ### Ports
