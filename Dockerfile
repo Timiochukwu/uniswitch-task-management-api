@@ -6,6 +6,7 @@ RUN apk update && apk add --no-cache \
     unzip \
     curl \
     bash \
+    nginx \
     && rm -rf /var/cache/apk/*
 
 # Install PHP extensions
@@ -26,8 +27,11 @@ RUN composer install --no-scripts --no-dev
 # Set proper permissions on storage and cache directories
 RUN chmod -R 775 storage bootstrap/cache
 
-# Expose the port that the built-in PHP server will use
-EXPOSE 8000
+# Copy the Nginx config file
+COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Run the PHP built-in server to serve the Laravel app
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Expose the port that Nginx will use
+EXPOSE 80
+
+# Start Nginx and PHP-FPM
+CMD ["/bin/sh", "-c", "nginx & php-fpm"]
