@@ -16,6 +16,6 @@ services:
         restart: always
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: root
         ports:
             - "3307:3306"
