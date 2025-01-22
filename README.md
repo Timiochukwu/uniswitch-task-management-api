@@ -19,6 +19,7 @@ A RESTful API built with Laravel for managing tasks. This project implements the
 - MySQL 8.0
 - Docker
 - PHPUnit for testing
+- Nginx
 
 ## Prerequisites
 
@@ -155,8 +156,15 @@ The project includes three main services:
 - **mysql**: Database
 
 ### Ports
-- Application: `http://localhost:8000`
+- Application: `http://localhost:80`
 - MySQL: `3307:3306`
+
+### Nginx Configuration
+The application uses Nginx as a web server. The configuration files are located in the docker/nginx directory:
+
+docker/nginx/nginx.conf: Main Nginx configuration.
+
+docker/nginx/default.conf: Application-specific Nginx configuration for routing requests to PHP-FPM.
 
 ## Troubleshooting
 
