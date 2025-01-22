@@ -27,6 +27,9 @@ RUN composer install --no-scripts --no-dev
 # Set proper permissions on storage and cache directories
 RUN chmod -R 775 storage bootstrap/cache
 
+# Copy the default nginx.conf file
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+
 # Copy the Nginx config file
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
